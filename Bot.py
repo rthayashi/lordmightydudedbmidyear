@@ -9,8 +9,7 @@ def get_prefix(client, message):
 
     return prefixes[str(message.guild.id)]
 
-client = commands.Bot(command_prefix = ".")
-(get_prefix)
+client = commands.Bot(command_prefix = get_prefix)
 # @client.command()
 # async def users(message):
 #     await message.channel.send(f"""# of Members{guild.member_count}""")
@@ -116,4 +115,7 @@ async def on_member_remove(member):
      await member.dm_channel.send(f'Cya Cunt')
 
 
-client.run('NjcxMzUxMTk0NTYzNzcyNDY4.XjA3AA.awsnZ0iXcPAWzR_gaXhq8BpnMGE')
+    
+
+
+client.run('NjcxMzUxMTk0NTYzNzcyNDY4.XjglsA.Qv35Oq5sZhKNbJ9p9xoOE2BvuMo')
