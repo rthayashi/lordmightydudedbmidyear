@@ -55,9 +55,13 @@ async def load(ctx, extension):
 async def unload(ctx, extension):
     client.unload_extension(f'cogs.{extension}')
 
-for filename in os.listdir('./cogs'):
-    if filename.endswith('.py'):
-        client.load_extension(f'cogs.{filename[:-3]}')
+for cog in os.listdir(".\\cogs"):
+    if cog.endswith(".py"):
+        # try:
+        cog = f"cogs.{cog.replace('.py', '')}"
+        client.load_extension(cog)
+        # except Exception as e:
+        #     print(f"{cog} can not be loaded")
 
 @client.event
 async def on_command_error(ctx, error):
