@@ -8,7 +8,7 @@ class test(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-        with open(r"C:\Users\Max\PycharmProjects\midyeardiscordbot\users.json", 'r') as f:
+        with open(r"C:\\Users\\Max\\PycharmProjects\\midyeardiscordbot\\users.json", 'r') as f:
             self.users = json.load(f)
 
 
@@ -17,10 +17,17 @@ class test(commands.Cog):
     async def save_users(self):
         await self.client.wait_until_ready()
         while not self.client.is_closed():
-            with open(r"C:\Users\Max\PycharmProjects\midyeardiscordbot\users.json", 'w'), as f:
-                json.dump(self.users, f, indent = 4)
+            json.dump(self.users, open("C:\\Users\Max\\PycharmProjects\\midyeardiscordbot\\users.json", "w"), indent=4)
 
-            await asyncio.sleep(5)
+
+            await asyncio.sleep(20)
+    # async def save_users(self):
+    #     await self.client.wait_until_ready()
+    #     while not self.client.is_closed():
+    #         with open(r"C:\Users\Max\PycharmProjects\midyeardiscordbot\users.json", 'w'), as f:
+    #             json.dump(self.users, f, indent = 4)
+    #
+    #         await asyncio.sleep(5)
 
     def lvl_up(self, author_id):
         cur_xp = self.users[author_id]['exp']
@@ -37,15 +44,18 @@ class test(commands.Cog):
 
         if message.author == self.client.user:
             return
+
         author_id = str(message.author.id)
 
-        if author_id in self.users:
+        if not author_id in self.users:
             self.users[author_id] = {}
             self.users[author_id]['level'] = 1
             self.users[author_id]['exp'] = 0
+
         self.users[author_id]['exp'] += 1
+
         if self.lvl_up(author_id):
-            await message.channel.send(f"{message.author.mention} is not level {self.users[author_id]['level']}")
+            await message.channel.send(f"{message.author.mention} has reached level {self.users[author_id]['level']}")
 
     @commands.command()
     async def level(self, ctx, member: discord.Member = None):
